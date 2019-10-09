@@ -129,7 +129,7 @@ angular.module('oncokbStaticApp')
         };
 
         $scope.getFilteredResultStatement = function() {
-            return $sce.trustAsHtml(`<span style="font-weight: bold;">Showing ${$scope.filterResults.treatments.length} biomarker-drug ${pluralize('association', $scope.filterResults.treatments.length)}</span> (${$scope.filterResults.genes.total.length} ${pluralize('gene', $scope.filterResults.genes.total.length)}, ${$scope.filterResults.tumorTypes.length} ${pluralize('tumor type', $scope.filterResults.tumorTypes.length)}, ${$scope.filterResults.levels.length} ${pluralize('level', $scope.filterResults.levels.length)} of evidence)`);
+            return $sce.trustAsHtml('<span style="font-weight: bold;">Showing ' + $scope.filterResults.treatments.length + ' biomarker-drug ' + pluralize('association', $scope.filterResults.treatments.length) + '</span> ('+$scope.filterResults.genes.total.length+' ' + pluralize('gene', $scope.filterResults.genes.total.length) + ', '+$scope.filterResults.tumorTypes.length+' '+pluralize('tumor type', $scope.filterResults.tumorTypes.length)+', ' + $scope.filterResults.levels.length+' '+ pluralize('level', $scope.filterResults.levels.length) +' of evidence)');
         };
 
         $scope.pluralizeString = function(string, number) {

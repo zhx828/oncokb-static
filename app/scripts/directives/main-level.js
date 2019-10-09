@@ -28,7 +28,7 @@ angular.module('oncokbStaticApp')
                     open: false
                 };
                 scope.getContent = function() {
-                    return `${scope.geneCount} ${pluralize('Gene', scope.geneCount)}`;
+                    return scope.geneCount + ' ' + pluralize('Gene', scope.geneCount);
                 };
             }
         };
