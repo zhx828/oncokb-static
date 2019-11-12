@@ -43,5 +43,8 @@
         "./jquery.qtip.css"
       ]
     }
+  },
+  "resolutions": {
+    "1.5.11": "1.5.11"
   }
 }
