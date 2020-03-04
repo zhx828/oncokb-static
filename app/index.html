@@ -6,10 +6,6 @@
     <title>OncoKB</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <script>
-        // Redirect the page to the beta page
-        window.location = 'https://www.oncokb.org' + window.location.pathname + window.location.hash;
-    </script>
     <script src="https://browser.sentry-cdn.com/4.5.3/bundle.min.js" crossorigin="anonymous"></script>
     <script>
         Sentry.init({dsn: 'https://8806866da2014ae09843293eae9e1286@sentry.io/1382470'});
@@ -111,7 +107,7 @@
                                                                                                    data-toggle="collapse"
                                                                                                    data-target=".in"><span>Cancer
                         Genes</span></a></li>
-                    <li ng-click="toggled=false" ng-class="{ active: isActive('/dataAccess')}"><a data-toggle="collapse"
+                    <li ng-click="toggled=false"><a data-toggle="collapse"
                                                                                                   data-target=".in"
                                                                                                   href="dataAccess"><span>Data
                         Access</span></a>
@@ -145,19 +141,10 @@
                 </div>
             </div>
         </div>
-        <div class="subNavWrapper"
-             ng-class="{'sub-nav-block': view.currentPage === 'gene' || view.currentPage === 'alteration'}">
+        <div class="subNavWrapper sub-nav-block">
             <div class="container">
                 <div class="subNav">
-                    <!-- In order to use last child css style, add div wrapper -->
-                    <div ng-show="view.subNavItems.length > 0"
-                         class="pull-left col-md-9 col-lg-9 col-sm-12 col-xs-12 subNav-sxn-1">
-            <span ng-repeat="item in view.subNavItems" class="item">
-              <span ng-if="!item.link">{{item.content}}</span>
-              <a ng-if="item.link" ng-href="{{item.link}}" target="_self" uib-tooltip-placement="top" uib-tooltip="All Alterations">{{item.content}}</a>
-            </span>
-                    </div>
-
+                    This website is for demonstration purpose. Only information of BRAF, TP53 and ROS1 are available.
                 </div>
             </div>
         </div>

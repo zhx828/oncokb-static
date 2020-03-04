@@ -39,89 +39,14 @@ angular
     .constant('onLocalhost', location.hostname === 'localhost' || location.hostname === '127.0.0.1')
     .config(function($routeProvider, $provide, $httpProvider, Sentry, onLocalhost, $locationProvider) {
         $routeProvider
-            .when('/', {
-                templateUrl: 'views/main.html',
-                controller: 'HomeCtrl'
-            })
-            .when('/levels', {
-                title: 'Levels of Evidence',
-                templateUrl: 'views/levels.html',
-                controller: 'MainCtrl'
-            })
-            .when('/team', {
-                title: 'OncoKB Team',
-                templateUrl: 'views/team.html',
-                controller: 'MainCtrl'
-            })
-            .when('/gene/:geneName', {
-                templateUrl: 'views/gene.html',
-                controller: 'GeneCtrl',
-                controllerAs: 'gene'
-            })
-            .when('/genes', {
-                title: 'All curated genes',
-                templateUrl: 'views/genes.html',
-                controller: 'GenesCtrl',
-                controllerAs: 'genes'
-            })
-            .when('/gene/:geneName/:alterationName', {
-                templateUrl: 'views/gene.html',
-                controller: 'GeneCtrl',
-                controllerAs: 'gene'
-            })
-            .when('/gene/:geneName/alteration/:alterationName', {
-                redirectTo: '/gene/:geneName/:alterationName'
-            })
-            .when('/gene/:geneName/variant/:alterationName', {
-                redirectTo: '/gene/:geneName/:alterationName'
-            })
-            .when('/about', {
-                title: 'About OncoKB',
-                templateUrl: 'views/about.html',
-                controller: 'AboutCtrl',
-                controllerAs: 'about'
-            })
-            .when('/actionableGenes', {
-                title: 'Actionable Genes, Alterations, Tumor Types, and Drugs',
-                templateUrl: 'views/actionalGenes.html',
-                controller: 'actionableGenesCtrl',
-                controllerAs: 'actionableGenes'
-            })
-            .when('/actionableGenes/:filterType/:filter', {
-                title: 'Actionable Genes, Alterations, Tumor Types, and Drugs',
-                templateUrl: 'views/actionalGenes.html',
-                controller: 'actionableGenesCtrl',
-                controllerAs: 'actionableGenes'
-            })
-            .when('/terms', {
-                title: 'Usage Terms',
-                templateUrl: 'views/license.html',
-                controller: 'LicenseCtrl',
-                controllerAs: 'license'
-            })
-            .when('/updates', {
-                redirectTo: '/news'
-            })
-            .when('/news', {
-                title: 'Latest News',
-                templateUrl: 'views/news.html',
-                controller: 'NewsCtrl',
-                controllerAs: 'news'
-            })
             .when('/dataAccess', {
                 title: 'Access OncoKB Data',
                 templateUrl: 'views/dataaccess.html',
                 controller: 'DataaccessCtrl',
                 controllerAs: 'dataAccess'
             })
-            .when('/cancerGenes', {
-                title: 'OncoKB Cancer Gene List',
-                templateUrl: 'views/cancerGenes.html',
-                controller: 'CancerGenesCtrl',
-                controllerAs: 'cancerGenes'
-            })
             .otherwise({
-                redirectTo: '/'
+                redirectTo: '/dataAccess'
             });
 
         if(!onLocalhost) {
