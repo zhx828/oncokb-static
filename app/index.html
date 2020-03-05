@@ -154,14 +154,11 @@
 <div class="footer">
   <div class="container">
     <div class="row footer-row-1">
-        <p class="warning-usage-terms">OncoKB is intended for research purposes only. Please review the <a href="terms"><u class="usage-terms-linkout">usage terms</u></a>
-            before continuing.</p>
+        <p class="warning-usage-terms">Please review the <a href="https://www.oncokb.org/terms" target="_blank"><u class="usage-terms-linkout">terms of use</u></a> before continuing.</p>
       <div class="citation" ng-bind-html="data.citationURL"></div>
       <div class="">
         <a href="https://www.mskcc.org" target="_blank">MSK <i class="fa fa-external-link"></i></a>
         <a href="https://www.mskcc.org/research-areas/programs-centers/molecular-oncology" target="_blank">CMO <i
-          class="fa fa-external-link"></i></a>
-        <a href="http://www.questdiagnostics.com/home.html" target="_blank">Quest Diagnostics <i
           class="fa fa-external-link"></i></a>
         <a href="https://www.cbioportal.org" target="_blank">cBioPortal <i class="fa fa-external-link"></i></a>
         <a href="http://oncotree.mskcc.org" target="_blank">OncoTree <i class="fa fa-external-link"></i></a>
@@ -183,7 +180,7 @@
         </a>
       </div>
       <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 mskcc">
-        <span>&copy; 2019 Memorial Sloan Kettering Cancer Center</span>
+        <span>&copy; {{data.currentYear}} Memorial Sloan Kettering Cancer Center</span>
       </div>
     </div>
   </div>
