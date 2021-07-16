@@ -10,7 +10,7 @@ import java.time.Instant;
 import java.util.List;
 
 /**
- * Spring Data  repository for the UserMails entity.
+ * Spring Data repository for the UserMails entity.
  */
 @SuppressWarnings("unused")
 @Repository

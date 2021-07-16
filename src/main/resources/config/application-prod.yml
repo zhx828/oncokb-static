@@ -161,6 +161,7 @@ application:
   google-webmaster-verification:
   licensed-domains:
   trialed-domains:
+  embargoed-countries:
   account-approval-whitelist:
   token-usage-check:
   token-usage-check-whitelist:

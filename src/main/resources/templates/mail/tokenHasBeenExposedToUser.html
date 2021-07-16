@@ -6,7 +6,7 @@
         <link rel="shortcut icon" th:href="@{|${baseUrl}/favicon.ico|}" />
     </head>
     <body>
-        <p>Dear <b th:text="${token.firstName} + ' ' + ${token.lastName}"></b></p>
+        <p>Dear <b th:text="${token.firstName} + ' ' + ${token.lastName} + ','"></b></p>
         <p>We have become aware that your OncoKB token <b th:text="${token.token}"></b> was publicly availble on: <b th:text="${token.source}"></b>.</p>
         <p>
             This exposure of your token poses a security risk to your OncoKB account and could lead to unauthorized activities. 

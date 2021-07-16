@@ -4,6 +4,7 @@ package org.mskcc.cbio.oncokb.web.rest;
 import org.mskcc.cbio.oncokb.config.application.ApplicationProperties;
 import org.mskcc.cbio.oncokb.domain.Token;
 import org.mskcc.cbio.oncokb.domain.User;
+import org.mskcc.cbio.oncokb.domain.UserStatusChecks;
 import org.mskcc.cbio.oncokb.domain.enumeration.LicenseType;
 import org.mskcc.cbio.oncokb.domain.enumeration.MailType;
 import org.mskcc.cbio.oncokb.repository.UserRepository;
@@ -179,8 +180,12 @@ public class AccountResource {
             context.setVariable(MAIL_LICENSE, registeredLicenseType.getName());
             mailService.sendEmailFromTemplate(userDTO, MailType.APPROVAL_MSK_IN_COMMERCIAL, context);
         }
-        slackService.withClarificationNote(userDTO, true);
-        slackService.sendUserRegistrationToChannel(userDTO, userService.isTrialAccount(userDTO), userService.trialAccountInitiated(userDTO));
+        slackService.withClarificationNote(userDTO, true, true);
+        slackService.sendUserRegistrationToChannel(userDTO, new UserStatusChecks(userDTO,
+                userService.trialAccountActivated(userDTO),
+                userService.trialAccountInitiated(userDTO),
+                slackService.withClarificationNote(userDTO, false, false),
+                slackService.withEmbargoNote(userDTO)));
         return false;
     }
 

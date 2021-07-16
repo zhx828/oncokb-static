@@ -10,6 +10,7 @@ public enum BlockId {
     , ACCOUNT_INFO("account-info")
     , ORGANIZATION_INFO("organization-info")
     , ACADEMIC_CLARIFICATION_NOTE("academic-clarification-note")
+    , EMBARGOED_COUNTRY_NOTE("embargoed-country-note")
     , MSK_USER_NOTE("msk-user-note")
     , APPROVED_NOTE("approved-note")
     , TRIAL_ACCOUNT_NOTE("trial-account-note")

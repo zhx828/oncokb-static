@@ -16,9 +16,7 @@ public enum LicenseType {
         this.shortName = shortName;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
     public String getShortName() { return shortName; }
 }

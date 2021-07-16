@@ -250,6 +250,16 @@ public class MailService {
     }
 
     @Async
+    public void sendAcademicClarificationEmail(UserDTO user) {
+        sendEmailWithLicenseContext(user, MailType.CLARIFY_ACADEMIC_NON_INSTITUTE_EMAIL, applicationProperties.getEmailAddresses().getLicenseAddress(), null, null);
+    }
+
+    @Async
+    public void sendEmbargoedCountryEmail(UserDTO user) {
+        sendEmailWithLicenseContext(user, MailType.COMPANY_IS_IN_EMBARGOED_COUNTRY, applicationProperties.getEmailAddresses().getLicenseAddress(), null, null);
+    }
+
+    @Async
     public void sendTrialAccountExpiresMail(int expiresInDays, List<UserDTO> users) {
         if (users == null || users.isEmpty()) {
             return;
@@ -372,6 +382,8 @@ public class MailService {
                 return Optional.of("email.license.clarify.title");
             case CLARIFY_ACADEMIC_NON_INSTITUTE_EMAIL:
                 return Optional.of("email.license.clarify.title");
+            case COMPANY_IS_IN_EMBARGOED_COUNTRY:
+                return Optional.of("email.embargoed.country.title");
             case VERIFY_EMAIL_BEFORE_ACCOUNT_EXPIRES:
                 return Optional.of("email.account.expires.by.days.title");
             case APPROVAL_MSK_IN_COMMERCIAL:

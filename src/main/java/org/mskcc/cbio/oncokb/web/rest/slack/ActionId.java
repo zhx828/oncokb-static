@@ -6,12 +6,15 @@ package org.mskcc.cbio.oncokb.web.rest.slack;
  */
 public enum ActionId {
     APPROVE_USER("approve-user")
-    , UPDATE_USER("update-user")
     , CHANGE_LICENSE_TYPE("change-license-type")
     , GIVE_TRIAL_ACCESS("give-trial-access")
     , CONVERT_TO_REGULAR_ACCOUNT("convert-to-regular-account")
     , COLLAPSE("collapse")
     , EXPAND("expand")
+    , MORE_ACTIONS("more-actions")
+    , SEND_EMBARGO_EMAIL("send-embargo-email")
+    , SEND_ACADEMIC_CLARIFICATION_EMAIL("send-academic-clarification-email")
+    , UPDATE_USER("update-user")
     ;
 
     String id;

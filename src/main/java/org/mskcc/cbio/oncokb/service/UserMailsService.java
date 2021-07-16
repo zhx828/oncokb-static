@@ -79,6 +79,10 @@ public class UserMailsService {
     @Transactional(readOnly = true)
     public List<UserMailsDTO> findUserMailsByUserAndMailTypeAndSentDateAfter(User user, MailType mailType, Instant sentAfter) {
         log.debug("Request to get all UserMails for a particular user");
+        if (sentAfter == null) {
+            sentAfter = Instant.EPOCH;
+        }
+
         return userMailsRepository.findUserMailsByUserAndMailTypeAndSentDateAfter(user, mailType, sentAfter).stream()
             .map(userMailsMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));

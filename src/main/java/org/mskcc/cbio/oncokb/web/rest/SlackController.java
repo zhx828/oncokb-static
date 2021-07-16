@@ -10,7 +10,9 @@ import com.slack.api.util.json.GsonFactory;
 import com.slack.api.webhook.Payload;
 import org.apache.commons.lang3.StringUtils;
 import org.mskcc.cbio.oncokb.domain.User;
+import org.mskcc.cbio.oncokb.domain.UserStatusChecks;
 import org.mskcc.cbio.oncokb.domain.enumeration.LicenseType;
+import org.mskcc.cbio.oncokb.domain.enumeration.MailType;
 import org.mskcc.cbio.oncokb.repository.UserRepository;
 import org.mskcc.cbio.oncokb.service.MailService;
 import org.mskcc.cbio.oncokb.service.SlackService;
@@ -71,14 +73,23 @@ public class SlackController {
 
         BlockActionPayload.Action action = this.slackService.getAction(pl, actionId).orElse(null);
         String login;
-        if (actionId == ActionId.CHANGE_LICENSE_TYPE) {
+        if (actionId == ActionId.CHANGE_LICENSE_TYPE || actionId == ActionId.MORE_ACTIONS) {
             login = this.slackService.getOptionValueLogin(action.getSelectedOption().getValue());
         } else {
             login = action.getValue().toLowerCase();
         }
+
         Optional<User> user = action == null ? Optional.empty() : userRepository.findOneByLogin(login);
         if (user.isPresent()) {
             UserDTO userDTO = userMapper.userToUserDTO(user.get());
+            UserStatusChecks userStatusChecks = new UserStatusChecks(userDTO,
+                    userService.trialAccountActivated(userDTO),
+                    userService.trialAccountInitiated(userDTO),
+                    slackService.withClarificationNote(userDTO, false, false),
+                    slackService.withEmbargoNote(userDTO));
+            if (actionId == ActionId.MORE_ACTIONS) {
+                actionId = slackService.getActionIdFromMoreActions(pl);
+            }
             switch (actionId) {
                 case APPROVE_USER:
                     if (!userDTO.isActivated()) {
@@ -89,29 +100,33 @@ public class SlackController {
                     }
                     break;
                 case GIVE_TRIAL_ACCESS:
-                    user = userService.initiateTrialAccountActivation(action.getValue().toLowerCase());
+                    userStatusChecks.setTrialAccountInitiated(true);
+                    user = userService.initiateTrialAccountActivation(login);
                     userDTO = userMapper.userToUserDTO(user.get());
                     mailService.sendActiveTrialMail(userDTO, false);
                     break;
                 case CHANGE_LICENSE_TYPE:
                     String value = action.getSelectedOption().getValue();
-                    LicenseType newLicenseType = LicenseType.valueOf(this.slackService.getOptionValueLicenseType(value));
+                    LicenseType newLicenseType = LicenseType.valueOf(this.slackService.getOptionValueArgument(value));
                     userDTO.setLicenseType(newLicenseType);
                     this.userService.updateUser(userDTO);
                     break;
                 case CONVERT_TO_REGULAR_ACCOUNT:
+                    userStatusChecks.setTrialAccountActivated(false);
                     userService.convertTrialUserToRegular(userDTO);
                     break;
-                case UPDATE_USER:
+                case SEND_ACADEMIC_CLARIFICATION_EMAIL:
+                    userStatusChecks.setAcademicClarificationEmailSent(true);
+                    mailService.sendAcademicClarificationEmail(userDTO);
                     break;
-                case COLLAPSE:
-                    break;
-                case EXPAND:
+                case SEND_EMBARGO_EMAIL:
+                    userStatusChecks.setEmbargoEmailSent(true);
+                    mailService.sendEmbargoedCountryEmail(userDTO);
                     break;
                 default:
                     break;
             }
-            this.slackService.sendLatestBlocks(pl.getResponseUrl(), userDTO, userService.isTrialAccount(userDTO), userService.trialAccountInitiated(userDTO), pl);
+            this.slackService.sendLatestBlocks(pl.getResponseUrl(), userDTO, userStatusChecks, pl);
         }
         return new ResponseEntity<>("", HttpStatus.OK);
     }
